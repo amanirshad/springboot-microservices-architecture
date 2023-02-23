@@ -15,10 +15,14 @@ import javax.persistence.*;
 @Table(name = "departments")
 public class Department {
 
+    public Department(String departmentName, String departmentDescription, String departmentCode){
+        this.departmentName = departmentName;
+        this.departmentDescription = departmentDescription;
+        this.departmentCode = departmentCode;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String departmentName;
     private String departmentDescription;
     private String departmentCode;
