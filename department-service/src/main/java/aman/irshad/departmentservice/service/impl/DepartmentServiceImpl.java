@@ -2,6 +2,7 @@ package aman.irshad.departmentservice.service.impl;
 
 import aman.irshad.departmentservice.dto.DepartmentDto;
 import aman.irshad.departmentservice.entity.Department;
+import aman.irshad.departmentservice.mapper.AutoDepartmentMapper;
 import aman.irshad.departmentservice.repository.DepartmentRepository;
 import aman.irshad.departmentservice.service.DepartmentService;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 //        Department department = new Department( departmentDto.getDepartmentName(),
 //                departmentDto.getDepartmentDescription(), departmentDto.getDepartmentCode());
 
-        Department department = modelMapper.map(departmentDto,Department.class);
+//        Department department = modelMapper.map(departmentDto,Department.class);
+        Department department = AutoDepartmentMapper.MAPPER.mapToDepartment(departmentDto);
 
         Department savedDepartment = departmentRepository.save(department);
 
@@ -34,7 +36,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 //                savedDepartment.getDepartmentCode()
 //        );
 
-        DepartmentDto savedDepartmentDto = modelMapper.map(savedDepartment,DepartmentDto.class);
+//        DepartmentDto savedDepartmentDto = modelMapper.map(savedDepartment,DepartmentDto.class);
+        DepartmentDto savedDepartmentDto = AutoDepartmentMapper.MAPPER.mapToDepartmentDto(savedDepartment);
         return savedDepartmentDto;
 
     }
@@ -48,7 +51,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 //                department.getDepartmentDescription(),
 //                department.getDepartmentCode()
 //        );
-        DepartmentDto departmentDto = modelMapper.map(department,DepartmentDto.class);
+//        DepartmentDto departmentDto = modelMapper.map(department,DepartmentDto.class);
+        DepartmentDto departmentDto = AutoDepartmentMapper.MAPPER.mapToDepartmentDto(department);
         return departmentDto;
 
     }
