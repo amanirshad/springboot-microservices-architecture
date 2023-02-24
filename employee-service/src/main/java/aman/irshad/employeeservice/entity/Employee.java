@@ -15,6 +15,12 @@ import javax.persistence.*;
 @Table(name = "employees")
 public class Employee {
 
+    public Employee(String firstName, String lastName, String email){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
