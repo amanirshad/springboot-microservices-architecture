@@ -2,6 +2,7 @@ package aman.irshad.departmentservice.service.impl;
 
 import aman.irshad.departmentservice.dto.DepartmentDto;
 import aman.irshad.departmentservice.entity.Department;
+import aman.irshad.departmentservice.exception.ResourceNotFoundException;
 import aman.irshad.departmentservice.mapper.AutoDepartmentMapper;
 import aman.irshad.departmentservice.repository.DepartmentRepository;
 import aman.irshad.departmentservice.service.DepartmentService;
@@ -45,6 +46,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDto getDepartmentByCode(String departmentCode) {
         Department department = departmentRepository.findByDepartmentCode(departmentCode);
+        if (department == null) {
+            throw new ResourceNotFoundException("Department","code",departmentCode);
+        }
 
 //        DepartmentDto departmentDto = new DepartmentDto(
 //                department.getId(), department.getDepartmentName(),

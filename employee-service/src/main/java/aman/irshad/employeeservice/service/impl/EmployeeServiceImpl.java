@@ -2,6 +2,7 @@ package aman.irshad.employeeservice.service.impl;
 
 import aman.irshad.employeeservice.dto.EmployeeDto;
 import aman.irshad.employeeservice.entity.Employee;
+import aman.irshad.employeeservice.exception.ResourceNotFoundException;
 import aman.irshad.employeeservice.mapper.AutoEmployeeMapper;
 import aman.irshad.employeeservice.repository.EmployeeRepository;
 import aman.irshad.employeeservice.service.EmployeeService;
@@ -42,7 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).get();
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(
+                () -> new ResourceNotFoundException("Employee","id",employeeId)
+        );
 
 //        EmployeeDto employeeDto = new EmployeeDto(
 //                employee.getId(),
