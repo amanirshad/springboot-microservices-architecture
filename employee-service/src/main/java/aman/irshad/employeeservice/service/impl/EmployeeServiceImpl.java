@@ -7,6 +7,7 @@ import aman.irshad.employeeservice.entity.Employee;
 import aman.irshad.employeeservice.exception.ResourceNotFoundException;
 import aman.irshad.employeeservice.mapper.AutoEmployeeMapper;
 import aman.irshad.employeeservice.repository.EmployeeRepository;
+import aman.irshad.employeeservice.service.APIClient;
 import aman.irshad.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,6 +25,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private RestTemplate restTemplate;
 
     private WebClient webClient;
+
+    private APIClient apiClient;
 
     private ModelMapper modelMapper;
 
@@ -61,11 +64,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 //
 //        DepartmentDto departmentDto = responseEntity.getBody();
 
-       DepartmentDto departmentDto =  webClient.get()
-                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+//       DepartmentDto departmentDto =  webClient.get()
+//                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
+
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
 //        EmployeeDto employeeDto = new EmployeeDto(
 //                employee.getId(),
