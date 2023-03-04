@@ -3,6 +3,7 @@ package aman.irshad.employeeservice.service.impl;
 import aman.irshad.employeeservice.dto.APIResponseDto;
 import aman.irshad.employeeservice.dto.DepartmentDto;
 import aman.irshad.employeeservice.dto.EmployeeDto;
+import aman.irshad.employeeservice.dto.OrganizationDto;
 import aman.irshad.employeeservice.entity.Employee;
 import aman.irshad.employeeservice.exception.ResourceNotFoundException;
 import aman.irshad.employeeservice.mapper.AutoEmployeeMapper;
@@ -78,6 +79,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .bodyToMono(DepartmentDto.class)
                 .block();
 
+        OrganizationDto organizationDto =  webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
+
 //        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
 //        EmployeeDto employeeDto = new EmployeeDto(
@@ -94,6 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployee(employeeDto);
         apiResponseDto.setDepartment(departmentDto);
+        apiResponseDto.setOrganization(organizationDto);
         return apiResponseDto;
     }
 
