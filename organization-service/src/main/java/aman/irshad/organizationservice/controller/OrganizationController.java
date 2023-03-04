@@ -3,12 +3,10 @@ package aman.irshad.organizationservice.controller;
 import aman.irshad.organizationservice.dto.OrganizationDto;
 import aman.irshad.organizationservice.service.OrganizationService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/organizations")
@@ -24,4 +22,10 @@ public class OrganizationController {
         return new ResponseEntity<>(savedOrganizationDto, HttpStatus.CREATED);
     }
 
+    // Build Get Organization By Code REST API
+    @GetMapping("/{code}")
+    public ResponseEntity<OrganizationDto> getOrganizationByCode(@PathVariable("code") String organizationCode){
+        OrganizationDto organizationDto = organizationService.getOrganizationByCode(organizationCode);
+        return new ResponseEntity<>(organizationDto,HttpStatus.OK);
+    }
 }
